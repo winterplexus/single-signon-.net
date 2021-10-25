@@ -1,0 +1,438 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\inetpub\wwwroot\TokenGenerator</_PublishTargetUrl>
+    <History>True|2021-10-15T14:34:20.4743781Z;True|2021-10-11T14:10:36.5515464-04:00;True|2021-10-11T13:47:57.8528046-04:00;True|2021-10-11T13:09:05.9584118-04:00;True|2021-09-29T09:35:21.4623773-04:00;True|2021-09-29T09:32:02.4308832-04:00;True|2021-09-10T09:05:41.9929578-04:00;True|2021-09-10T09:05:02.6517123-04:00;True|2021-09-08T11:27:32.4643506-04:00;True|2021-09-07T15:11:34.2686019-04:00;True|2021-09-07T14:44:36.4415447-04:00;True|2021-09-07T14:40:13.4399996-04:00;True|2021-09-07T09:09:34.2245359-04:00;True|2021-09-05T11:28:42.5602810-04:00;True|2021-09-05T11:28:00.7296616-04:00;True|2021-09-05T11:12:19.7788653-04:00;True|2021-09-05T10:19:41.0998824-04:00;True|2021-09-05T10:16:57.2794143-04:00;True|2021-09-05T10:14:36.8848056-04:00;True|2021-09-05T09:50:41.8649309-04:00;True|2021-09-03T16:13:16.8445702-04:00;True|2021-09-03T15:30:16.0151404-04:00;True|2021-09-03T14:49:28.6610535-04:00;True|2021-09-03T13:20:38.8862102-04:00;True|2021-09-03T13:13:48.2110532-04:00;True|2021-09-03T13:09:21.1722171-04:00;True|2021-09-03T13:06:33.0874581-04:00;True|2021-09-03T13:04:17.6983926-04:00;True|2021-09-03T13:02:25.4247374-04:00;True|2021-09-03T13:00:37.0436055-04:00;True|2021-09-03T12:59:05.4431199-04:00;True|2021-09-03T12:58:06.0235516-04:00;True|2021-09-03T12:57:01.4052230-04:00;True|2021-09-03T12:55:44.5540916-04:00;True|2021-09-03T11:42:52.3432704-04:00;True|2021-09-03T11:25:16.0116307-04:00;True|2021-09-03T11:21:35.8025645-04:00;True|2021-09-02T17:40:48.7243511-04:00;True|2021-09-02T14:39:47.2537741-04:00;True|2021-09-02T14:28:34.7787983-04:00;True|2021-09-02T08:58:49.8595803-04:00;True|2021-09-02T08:48:09.7110006-04:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="Areas/HelpPage/HelpPage.css">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/Api.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/ApiGroup.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/CollectionModelDescription.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/ComplexTypeModelDescription.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/DictionaryModelDescription.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/EnumTypeModelDescription.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/HelpPageApiModel.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/ImageSample.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/InvalidSample.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/KeyValuePairModelDescription.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/ModelDescriptionLink.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/Parameters.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/Samples.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/SimpleTypeModelDescription.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/TextSample.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/Index.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/ResourceModel.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Shared/_Layout.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Web.config">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/_ViewStart.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.pdb">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/AxiomTokenGenerator.dll">
+      <publishTime>10/15/2021 10:29:11</publishTime>
+    </File>
+    <File Include="bin/AxiomTokenGenerator.Log.dll">
+      <publishTime>10/15/2021 10:29:10</publishTime>
+    </File>
+    <File Include="bin/AxiomTokenGenerator.Log.pdb">
+      <publishTime>10/15/2021 10:29:10</publishTime>
+    </File>
+    <File Include="bin/AxiomTokenGenerator.pdb">
+      <publishTime>10/15/2021 10:29:11</publishTime>
+    </File>
+    <File Include="bin/AxiomTokenGenerator.Saml.dll">
+      <publishTime>10/15/2021 10:29:10</publishTime>
+    </File>
+    <File Include="bin/AxiomTokenGenerator.Saml.dll.config">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/AxiomTokenGenerator.Saml.pdb">
+      <publishTime>10/15/2021 10:29:10</publishTime>
+    </File>
+    <File Include="bin/AxiomTokenGenerator.Utility.dll">
+      <publishTime>10/15/2021 10:29:10</publishTime>
+    </File>
+    <File Include="bin/AxiomTokenGenerator.Utility.pdb">
+      <publishTime>10/15/2021 10:29:10</publishTime>
+    </File>
+    <File Include="bin/Certificates/fdor-self-signed-axiom-authenticate.cer">
+      <publishTime>09/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/Certificates/fdor-self-signed-axiom-authenticate.pfx">
+      <publishTime>09/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/Certificates/self-signed-authenticate.cer">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/Certificates/self-signed-authenticate.pfx">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/NLog.config">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/NLog.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe.config">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.rsp">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.exe">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.exe.config">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.rsp">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Managed.Core.targets">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Win32.Primitives.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.AppContext.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Console.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.DiagnosticSource.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.FileVersionInfo.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.StackTrace.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Globalization.Calendars.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.Compression.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.Compression.ZipFile.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.Primitives.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Net.Http.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Net.Sockets.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Runtime.InteropServices.RuntimeInformation.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Algorithms.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Encoding.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Primitives.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.X509Certificates.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Text.Encoding.CodePages.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Threading.Tasks.Extensions.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.ValueTuple.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.ReaderWriter.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XmlDocument.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XPath.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XPath.XDocument.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe.config">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.rsp">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/TokenGenerator.dll">
+      <publishTime>09/01/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/TokenGenerator.pdb">
+      <publishTime>09/01/2021 12:55:00</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Certificates/fdor-self-signed-axiom-authenticate.cer">
+      <publishTime>09/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Certificates/fdor-self-signed-axiom-authenticate.pfx">
+      <publishTime>09/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Certificates/self-signed-authenticate.cer">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Certificates/self-signed-authenticate.pfx">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Content/bootstrap-theme.css">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Content/bootstrap-theme.css.map">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Content/bootstrap-theme.min.css">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Content/bootstrap-theme.min.css.map">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css.map">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css.map">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="NameKey.snk">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.js">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.min.js">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.min.map">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.slim.js">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.slim.min.js">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.slim.min.map">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.8.3.js">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>10/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>10/15/2021 10:34:17</publishTime>
+    </File>
+    <File Include="Web.test.config">
+      <publishTime>09/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Web.test.Debug.config">
+      <publishTime>09/05/2021 12:55:00</publishTime>
+    </File>
+    <File Include="Web.test.Release.config">
+      <publishTime>09/05/2021 12:55:00</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

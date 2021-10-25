@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <Authors>Wiregrass Code Technology</Authors>
+        <Company>Wiregrass Code Technology</Company>
+        <Product>Single Sign-on Authenticator</Product>
+        <Description>Single sign-on authenticator application</Description>
+        <Copyright>Copyright © 2021 Wiregrass Code Technology</Copyright>
+        <AssemblyName>Authenticator</AssemblyName>
+        <RootNamespace>Authenticator</RootNamespace>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>NameKey.snk</AssemblyOriginatorKeyFile>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <Version>1.0.0.0</Version>
+        <WebProject_DirectoryAccessLevelKey>0</WebProject_DirectoryAccessLevelKey>
+        <UserSecretsId>aspnet-Authenticate-2EA5AA56-AA40-4A45-95C6-E804C3A64314</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="3.1.12" />
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="RestSharp" Version="106.12.0" />
+        <PackageReference Include="System.IO" Version="4.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\.editorconfig" Link=".editorconfig" />
+        <None Include="Controllers\Extensions\Extensions.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Authenticator.Log\Authenticator.Log.csproj" />
+      <ProjectReference Include="..\Authenticator.Saml\Authenticator.Saml.csproj" />
+      <ProjectReference Include="..\Authenticator.Utility\Authenticator.Utility.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Certificates\Authenticator.cer">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Properties\PublishProfiles\" />
+    </ItemGroup>
+
+</Project>

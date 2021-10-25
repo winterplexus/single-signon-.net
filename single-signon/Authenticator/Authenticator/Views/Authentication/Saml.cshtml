@@ -1,0 +1,14 @@
+﻿@model Authenticator.ViewModels.AuthenticationViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (!string.IsNullOrEmpty(Model?.ErrorMessage))
+{
+    <h3>Application Error</h3>
+    <div class="jumbotron">
+        <div class="row">
+            <p class="text-danger"><strong><label asp-for="@Model.ErrorMessage"></label>:</strong>&nbsp;@Model.ErrorMessage</p>
+        </div>
+    </div>
+}
