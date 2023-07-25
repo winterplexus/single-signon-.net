@@ -1,7 +1,7 @@
 ﻿//
 //  HomeController.cs
 //
-//  Copyright (c) Wiregrass Code Technology 2021
+//  Copyright (c) Wiregrass Code Technology 2021-2023
 //
 using System;
 using System.Reflection;
@@ -15,18 +15,18 @@ using Authenticator.ViewModels;
 
 namespace Authenticator.Controllers
 {
-    public class HomeController : Controller
+    public partial class HomeController : Controller
     {
-        private readonly ILogger<HomeController> controllerLogger;
+        private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
-            controllerLogger = logger;
+            _logger = logger;
         }
 
         public ActionResult Index()
         {
-            controllerLogger.LogTrace($"{ControllerMessages.Entering}");
+            LogTraceMessage($"{ControllerMessages.Entering}");
 
             var samlEndpoint = ApplicationSettings.GetStringValue("Saml", "SamlEndpoint");
 
@@ -37,16 +37,16 @@ namespace Authenticator.Controllers
                     ApplicationSettings.GetStringValue("Saml", "AssertionConsumerService")
                 );
 
-                controllerLogger.LogTrace($"{ControllerMessages.Leaving}: redirect to SAML endpoint");
+                LogTraceMessage($"{ControllerMessages.Leaving}: redirect to SAML endpoint");
 
-                return Redirect(request.GetRedirectUrl(samlEndpoint));
+                return Redirect(request.GetRedirectUrl(samlEndpoint).ToString());
             }
             catch (Exception ex)
             {
                 EventLog.WriteEvent(Assistant.GetMethodFullName(MethodBase.GetCurrentMethod()), ex);
             }
 
-            controllerLogger.LogTrace($"{ControllerMessages.Leaving}");
+            LogTraceMessage($"{ControllerMessages.Leaving}");
 
             return View();
         }
@@ -57,5 +57,8 @@ namespace Authenticator.Controllers
         {
             return View(new ErrorViewModel { RequestId = System.Diagnostics.Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [LoggerMessage(EventId = 1, Level = LogLevel.Trace, Message = "{message}")]
+        public partial void LogTraceMessage(string message);
     }
 }

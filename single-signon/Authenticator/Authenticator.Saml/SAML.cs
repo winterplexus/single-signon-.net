@@ -14,11 +14,11 @@ namespace Authenticator.Saml
 {
     public class AssertionResponse : IDisposable
     {
-        protected XmlDocument xmlDocument;
-        protected readonly X509Certificate2 x509Certificate;
-        protected XmlNamespaceManager xmlNameSpaceManager;
+        private XmlDocument _xmlDocument;
+        private readonly X509Certificate2 _x509Certificate;
+        private XmlNamespaceManager _xmlNameSpaceManager;
 
-        public string Xml => xmlDocument.OuterXml;
+        public string Xml => _xmlDocument.OuterXml;
 
         public AssertionResponse(string certificateString, string responseString) : this(StringToByteArray(string.IsNullOrEmpty(certificateString) ? string.Empty : certificateString), responseString) { }
 
@@ -31,18 +31,18 @@ namespace Authenticator.Saml
 
         public AssertionResponse(byte[] certificateBytes)
         {
-            x509Certificate = new X509Certificate2(certificateBytes);
+            _x509Certificate = new X509Certificate2(certificateBytes);
         }
 
         public void LoadXml(string xml)
         {
-            xmlDocument = new XmlDocument
+            _xmlDocument = new XmlDocument
             {
                 PreserveWhitespace = true,
                 XmlResolver = null
             };
-            xmlDocument.LoadXml(xml);
-            xmlNameSpaceManager = GetNamespaceManager();
+            _xmlDocument.LoadXml(xml);
+            _xmlNameSpaceManager = GetNamespaceManager();
         }
 
         public void LoadXmlFromBase64(string response)
@@ -56,9 +56,9 @@ namespace Authenticator.Saml
 
         public bool IsValid()
         {
-            var signedXml = new SignedXml(xmlDocument);
+            var signedXml = new SignedXml(_xmlDocument);
 
-            var nodeList = xmlDocument.SelectNodes("//ds:Signature", xmlNameSpaceManager);
+            var nodeList = _xmlDocument.SelectNodes("//ds:Signature", _xmlNameSpaceManager);
             if (nodeList is { Count: 0 })
             {
                 return false;
@@ -68,12 +68,12 @@ namespace Authenticator.Saml
             {
                 signedXml.LoadXml((XmlElement)nodeList[0]);
             }
-            return ValidateSignatureReference(signedXml) && signedXml.CheckSignature(x509Certificate, true) && !IsExpired();
+            return ValidateSignatureReference(signedXml) && signedXml.CheckSignature(_x509Certificate, true) && !IsExpired();
         }
 
         public string GetNameId()
         {
-            var node = xmlDocument.SelectSingleNode("/samlp:Response/saml:Assertion[1]/saml:Subject/saml:NameID", xmlNameSpaceManager);
+            var node = _xmlDocument.SelectSingleNode("/samlp:Response/saml:Assertion[1]/saml:Subject/saml:NameID", _xmlNameSpaceManager);
             return node == null ? string.Empty : node.InnerText;
         }
 
@@ -132,7 +132,7 @@ namespace Authenticator.Saml
 
         public string GetCustomAttribute(string attribute)
         {
-            var node = xmlDocument.SelectSingleNode("/samlp:Response/saml:Assertion[1]/saml:AttributeStatement/saml:Attribute[@Name='" + attribute + "']/saml:AttributeValue", xmlNameSpaceManager);
+            var node = _xmlDocument.SelectSingleNode("/samlp:Response/saml:Assertion[1]/saml:AttributeStatement/saml:Attribute[@Name='" + attribute + "']/saml:AttributeValue", _xmlNameSpaceManager);
             return node?.InnerText;
         }
 
@@ -140,7 +140,7 @@ namespace Authenticator.Saml
         {
             if (disposing)
             {
-                x509Certificate.Dispose();
+                _x509Certificate.Dispose();
             }
         }
 
@@ -152,7 +152,7 @@ namespace Authenticator.Saml
 
         private XmlNamespaceManager GetNamespaceManager()
         {
-            var manager = new XmlNamespaceManager(xmlDocument.NameTable);
+            var manager = new XmlNamespaceManager(_xmlDocument.NameTable);
             manager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
             manager.AddNamespace("saml", "urn:oasis:names:tc:SAML:2.0:assertion");
             manager.AddNamespace("samlp", "urn:oasis:names:tc:SAML:2.0:protocol");
@@ -162,7 +162,7 @@ namespace Authenticator.Saml
         private bool IsExpired()
         {
             var expirationDate = DateTime.MaxValue;
-            var node = xmlDocument.SelectSingleNode("/samlp:Response/saml:Assertion[1]/saml:Subject/saml:SubjectConfirmation/saml:SubjectConfirmationData", xmlNameSpaceManager);
+            var node = _xmlDocument.SelectSingleNode("/samlp:Response/saml:Assertion[1]/saml:Subject/saml:SubjectConfirmation/saml:SubjectConfirmationData", _xmlNameSpaceManager);
             if (node?.Attributes?["NotOnOrAfter"] != null)
             {
                 _ = DateTime.TryParse(node.Attributes["NotOnOrAfter"].Value, out expirationDate);
@@ -183,13 +183,13 @@ namespace Authenticator.Saml
             {
                 var id = reference.Uri[1..];
 
-                var idElement = signedXml.GetIdElement(xmlDocument, id);
-                if (idElement == xmlDocument.DocumentElement)
+                var idElement = signedXml.GetIdElement(_xmlDocument, id);
+                if (idElement == _xmlDocument.DocumentElement)
                 {
                     return true;
                 }
 
-                var assertionNode = xmlDocument.SelectSingleNode("/samlp:Response/saml:Assertion", xmlNameSpaceManager) as XmlElement;
+                var assertionNode = _xmlDocument.SelectSingleNode("/samlp:Response/saml:Assertion", _xmlNameSpaceManager) as XmlElement;
                 if (assertionNode != idElement)
                 {
                     return false;
@@ -212,9 +212,10 @@ namespace Authenticator.Saml
 
     public class AuthenticationRequest
     {
-        private readonly string issueInstant;
-        private readonly string issuer;
-        private readonly string assertionConsumerServiceUrl;
+        private readonly string _issueInstant;
+        private readonly string _issuer;
+        private readonly string _assertionConsumerServiceUrl;
+        private string _id;
 
         public enum AuthenticationRequestFormat
         {
@@ -222,29 +223,42 @@ namespace Authenticator.Saml
             Base64 = 1
         }
 
-        public AuthenticationRequest(string authenticationIssuer, string authenticationAssertionConsumerServiceUrl)
+        public AuthenticationRequest(string authenticationIssuer, Uri authenticationAssertionConsumerServiceUrl)
         {
-            Id = "_" + Guid.NewGuid().ToString();
-            issueInstant = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ", System.Globalization.CultureInfo.InvariantCulture);
-            issuer = authenticationIssuer;
-            assertionConsumerServiceUrl = authenticationAssertionConsumerServiceUrl;
+            if (authenticationAssertionConsumerServiceUrl == null)
+            {
+                throw new ArgumentNullException(nameof(authenticationIssuer));
+            }
+
+            _id = "_" + Guid.NewGuid().ToString();
+            _issueInstant = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ", System.Globalization.CultureInfo.InvariantCulture);
+            _issuer = authenticationIssuer ?? throw new ArgumentNullException(nameof(authenticationIssuer));
+            _assertionConsumerServiceUrl = authenticationAssertionConsumerServiceUrl.ToString();
         }
 
-        public string GetRedirectUrl(string samlEndpoint, string relayState = null)
+        public AuthenticationRequest(string authenticationIssuer, string authenticationAssertionConsumerServiceUrl)
+        {
+            _id = "_" + Guid.NewGuid().ToString();
+            _issueInstant = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ", System.Globalization.CultureInfo.InvariantCulture);
+            _issuer = authenticationIssuer;
+            _assertionConsumerServiceUrl = authenticationAssertionConsumerServiceUrl;
+        }
+
+        public Uri GetRedirectUrl(string samlEndpoint, string relayState = null)
         {
             if (string.IsNullOrEmpty(samlEndpoint))
             {
                 throw new ArgumentNullException(nameof(samlEndpoint));
             }
 
-            var queryStringSeparator = samlEndpoint.Contains("?", StringComparison.OrdinalIgnoreCase) ? "&" : "?";
+            var queryStringSeparator = samlEndpoint.Contains('?', StringComparison.OrdinalIgnoreCase) ? "&" : "?";
 
             var url = $"{samlEndpoint}{queryStringSeparator}SAMLRequest={HttpUtility.UrlEncode(GetRequest(AuthenticationRequestFormat.Base64))}";
             if (!string.IsNullOrEmpty(relayState))
             {
                 url += "&RelayState=" + HttpUtility.UrlEncode(relayState);
             }
-            return url;
+            return new Uri(url);
         }
 
         public string GetRequest(AuthenticationRequestFormat format)
@@ -255,14 +269,14 @@ namespace Authenticator.Saml
             using (var xmlWriter = XmlWriter.Create(stringWriter, xmlWriterSettings))
             {
                 xmlWriter.WriteStartElement("samlp", "AuthnRequest", "urn:oasis:names:tc:SAML:2.0:protocol");
-                xmlWriter.WriteAttributeString("ID", Id);
+                xmlWriter.WriteAttributeString("ID", _id);
                 xmlWriter.WriteAttributeString("Version", "2.0");
-                xmlWriter.WriteAttributeString("IssueInstant", issueInstant);
+                xmlWriter.WriteAttributeString("IssueInstant", _issueInstant);
                 xmlWriter.WriteAttributeString("ProtocolBinding", "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST");
-                xmlWriter.WriteAttributeString("AssertionConsumerServiceURL", assertionConsumerServiceUrl);
+                xmlWriter.WriteAttributeString("AssertionConsumerServiceURL", _assertionConsumerServiceUrl);
 
                 xmlWriter.WriteStartElement("saml", "Issuer", "urn:oasis:names:tc:SAML:2.0:assertion");
-                xmlWriter.WriteString(issuer);
+                xmlWriter.WriteString(_issuer);
                 xmlWriter.WriteEndElement();
 
                 xmlWriter.WriteStartElement("samlp", "NameIDPolicy", "urn:oasis:names:tc:SAML:2.0:protocol");
@@ -283,7 +297,5 @@ namespace Authenticator.Saml
             }
             return null;
         }
-
-        public string Id;
     }
 }

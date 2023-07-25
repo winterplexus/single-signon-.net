@@ -1,7 +1,7 @@
 ﻿//
 //  WebApiConfig.cs
 //
-//  Copyright (c) Wiregrass Code Technology 2021
+//  Copyright (c) Wiregrass Code Technology 2021-2023
 //
 using System.Web.Http;
 
@@ -15,6 +15,7 @@ namespace TokenGenerator
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

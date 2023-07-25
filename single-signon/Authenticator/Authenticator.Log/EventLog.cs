@@ -1,7 +1,7 @@
 ﻿//
 //  EventLog.cs
 //
-//  Copyright (c) Wiregrass Code Technology 2021
+//  Copyright (c) Wiregrass Code Technology 2021-2023
 //
 using System;
 using NLog;
@@ -11,7 +11,7 @@ namespace Authenticator.Log
 {
     public static class EventLog
     {
-        private const string singleIndent = "  -";
+        private const string _singleIndent = "  -";
 
         public static void WriteEvent(string source, string message)
         {
@@ -31,8 +31,8 @@ namespace Authenticator.Log
             var logger = LogManager.GetLogger("Events");
 
             logger.Info($"source method (including namespace and class): {source}");
-            logger.Info($"{singleIndent} exception: {ReplaceControlCharacters(ex.Message)}");
-            logger.Info($"{singleIndent} exception stack trace: {ReplaceControlCharacters(ex.StackTrace)}");
+            logger.Info($"{_singleIndent} exception: {ReplaceControlCharacters(ex.Message)}");
+            logger.Info($"{_singleIndent} exception stack trace: {ReplaceControlCharacters(ex.StackTrace)}");
         }
 
         public static void WriteEvent(string source, string message, Exception ex)
@@ -46,8 +46,8 @@ namespace Authenticator.Log
 
             logger.Info($"source method (including namespace and class): {source}");
             logger.Info($"message: {message}");
-            logger.Info($"{singleIndent} exception: {ReplaceControlCharacters(ex.Message)}");
-            logger.Info($"{singleIndent} exception stack trace: {ReplaceControlCharacters(ex.StackTrace)}");
+            logger.Info($"{_singleIndent} exception: {ReplaceControlCharacters(ex.Message)}");
+            logger.Info($"{_singleIndent} exception stack trace: {ReplaceControlCharacters(ex.StackTrace)}");
         }
 
         private static string ReplaceControlCharacters(string input)

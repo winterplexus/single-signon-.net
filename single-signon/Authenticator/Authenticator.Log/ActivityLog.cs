@@ -1,7 +1,7 @@
 ﻿//
 //  ActivityLog.cs
 //
-//  Copyright (c) Wiregrass Code Technology 2021
+//  Copyright (c) Wiregrass Code Technology 2021-2023
 //
 using System;
 using NLog;
@@ -11,18 +11,18 @@ namespace Authenticator.Log
 {
     public static class ActivityLog
     {
-        private const string singleIndent = "  -";
-        private const string doubleIndent = "    -";
+        private const string _singleIndent = "  -";
+        private const string _doubleIndent = "    -";
 
         public static void WriteAuthentication(string nameId, string firstName, string lastName, string email)
         {
             var logger = LogManager.GetLogger("Activity");
 
             logger.Info("Azure AD authentication:");
-            logger.Info($"{singleIndent} SAML attributes:");
-            logger.Info($"{doubleIndent} ID: {nameId}");
-            logger.Info($"{doubleIndent} name: {firstName} {lastName}");
-            logger.Info($"{doubleIndent} email: {email}");
+            logger.Info($"{_singleIndent} SAML attributes:");
+            logger.Info($"{_doubleIndent} ID: {nameId}");
+            logger.Info($"{_doubleIndent} name: {firstName} {lastName}");
+            logger.Info($"{_doubleIndent} email: {email}");
         }
     }
 }

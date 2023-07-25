@@ -1,15 +1,13 @@
 ﻿//
 //  Global.asax.cs
 //
-//  Copyright (c) Wiregrass Code Technology 2021
+//  Copyright (c) Wiregrass Code Technology 2021-2023
 //
-using System;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-[assembly: CLSCompliant(true)]
 namespace TokenGenerator
 {
     public class WebApiApplication : System.Web.HttpApplication

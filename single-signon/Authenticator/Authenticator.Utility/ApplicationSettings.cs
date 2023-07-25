@@ -1,7 +1,7 @@
 ﻿//
 //  ApplicationSettings.cs
 //
-//  Copyright (c) Wiregrass Code Technology 2021
+//  Copyright (c) Wiregrass Code Technology 2021-2023
 //
 using System;
 using Microsoft.Extensions.Configuration;
@@ -11,8 +11,8 @@ namespace Authenticator.Utility
 {
     public static class ApplicationSettings
     {
-        private const string settingsPath = "appsettings.json";
-        private const string settingsSection = "appSettings";
+        private const string _settingsPath = "appsettings.json";
+        private const string _settingsSection = "appSettings";
 
         public static bool GetBooleanValue(string name)
         {
@@ -58,7 +58,7 @@ namespace Authenticator.Utility
 
         private static IConfigurationSection GetConfiguration(string section)
         {
-            string sectionName = settingsSection;
+            string sectionName = _settingsSection;
 
             if (!string.IsNullOrEmpty(section))
             {
@@ -67,7 +67,7 @@ namespace Authenticator.Utility
 
             var configurationRoot = new ConfigurationBuilder()
                 .SetBasePath(System.IO.Directory.GetCurrentDirectory())
-                .AddJsonFile(settingsPath)
+                .AddJsonFile(_settingsPath)
                 .Build();
 
             return configurationRoot.GetSection(sectionName);

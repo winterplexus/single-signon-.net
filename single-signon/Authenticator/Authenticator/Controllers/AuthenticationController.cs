@@ -1,45 +1,39 @@
 ﻿//
 //  AuthenticationController.cs
 //
-//  Copyright (c) Wiregrass Code Technology 2021
+//  Copyright (c) Wiregrass Code Technology 2021-2023
 //
 using System;
-using System.Net;
-using System.Text;
-using System.Text.Json;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
-using System.Threading;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Authenticator.Log;
 using Authenticator.Models;
-using Authenticator.ViewModels;
 using Authenticator.Saml;
 using Authenticator.Utility;
-using RestSharp;
+using Authenticator.ViewModels;
+using System.Threading.Tasks;
 
 namespace Authenticator.Controllers
 {
-    public class AuthenticationController : Controller
+    public partial class AuthenticationController : Controller
     {
-        private readonly ILogger<AuthenticationController> controllerLogger;
-        private readonly int callServiceLimit;
-        private readonly int callServiceDelayTime;
-        private readonly string tokenGeneratorEndpoint;
-        private readonly int tokenGeneratorEndpointTimeout;
+        private readonly ILogger<AuthenticationController> _logger;
+        private readonly string _tokenGeneratorEndpoint;
 
         public AuthenticationController(ILogger<AuthenticationController> logger)
         {
-            controllerLogger = logger;
-            callServiceLimit = ApplicationSettings.GetNumberValue("Saml", "CallServiceLimit");
-            callServiceDelayTime = ApplicationSettings.GetNumberValue("Saml", "CallServiceDelayTime");
-            tokenGeneratorEndpoint = ApplicationSettings.GetStringValue("Saml", "TokenGeneratorEndpoint");
-            tokenGeneratorEndpointTimeout = ApplicationSettings.GetNumberValue("Saml", "TokenGeneratorEndpointTimeout");
+            _logger = logger;
+            _tokenGeneratorEndpoint = ApplicationSettings.GetStringValue("Saml", "TokenGeneratorEndpoint");
         }
 
-        public IActionResult Saml()
+        public async Task<IActionResult> Saml()
         {
-            controllerLogger.LogTrace($"{ControllerMessages.Entering}");
+            LogTraceMessage($"{ControllerMessages.Entering}");
 
             var viewModel = new AuthenticationViewModel();
 
@@ -49,7 +43,7 @@ namespace Authenticator.Controllers
             {
                 const string message = "SAML certificate file does not exist";
 
-                controllerLogger.LogTrace($"{ControllerMessages.ErrorIndicator}: {message}");
+                LogTraceMessage($"{ControllerMessages.ErrorIndicator}: {message}");
 
                 EventLog.WriteEvent(Assistant.GetMethodFullName(MethodBase.GetCurrentMethod()), $"{message}");
 
@@ -63,7 +57,7 @@ namespace Authenticator.Controllers
                 {
                     const string message = "SAML certificate file is null or empty";
 
-                    controllerLogger.LogTrace($"{ControllerMessages.ErrorIndicator}: {message}");
+                    LogTraceMessage($"{ControllerMessages.ErrorIndicator}: {message}");
 
                     EventLog.WriteEvent(Assistant.GetMethodFullName(MethodBase.GetCurrentMethod()), $"{message}");
 
@@ -75,7 +69,7 @@ namespace Authenticator.Controllers
                 {
                     const string message = "SAML response is null or empty";
 
-                    controllerLogger.LogTrace($"{ControllerMessages.ErrorIndicator}: {message}");
+                    LogTraceMessage($"{ControllerMessages.ErrorIndicator}: {message}");
 
                     EventLog.WriteEvent(Assistant.GetMethodFullName(MethodBase.GetCurrentMethod()), $"{message}");
 
@@ -87,24 +81,24 @@ namespace Authenticator.Controllers
                 {
                     ActivityLog.WriteAuthentication(response.GetNameId(), response.GetFirstName(), response.GetLastName(), response.GetEmail());
 
-                    var token = GenerateToken(response.GetNameId(), response.GetEmail());
+                    var token = await GenerateToken(response.GetNameId(), response.GetEmail()).ConfigureAwait(false);
 
                     if (string.IsNullOrEmpty(token))
                     {
                         viewModel.ErrorMessage = "SAML token generation failed";
 
-                        controllerLogger.LogTrace($"{ControllerMessages.ErrorIndicator}: {viewModel.ErrorMessage}");
+                        LogTraceMessage($"{ControllerMessages.ErrorIndicator}: {viewModel.ErrorMessage}");
 
                         EventLog.WriteEvent(Assistant.GetMethodFullName(MethodBase.GetCurrentMethod()), $"{viewModel.ErrorMessage}");
 
                         return View(viewModel);
                     }
 
-                    controllerLogger.LogTrace($"{ControllerMessages.Success}: SAML token generated");
+                    LogTraceMessage($"{ControllerMessages.Success}: SAML token generated");
 
                     viewModel.UserName = $"{response.GetFirstName()} {response.GetLastName()}";
 
-                    controllerLogger.LogTrace($"{ControllerMessages.Success}: redirect and POST");
+                    LogTraceMessage($"{ControllerMessages.Success}: redirect and POST");
 
                     this.RedirectAndPost(token);
                 }
@@ -112,7 +106,7 @@ namespace Authenticator.Controllers
                 {
                     const string message = "SAML assertion response is null";
 
-                    controllerLogger.LogTrace($"{ControllerMessages.ErrorIndicator}: {message}");
+                    LogTraceMessage($"{ControllerMessages.ErrorIndicator}: {message}");
 
                     EventLog.WriteEvent(Assistant.GetMethodFullName(MethodBase.GetCurrentMethod()), $"{message}");
 
@@ -124,57 +118,37 @@ namespace Authenticator.Controllers
                 EventLog.WriteEvent(Assistant.GetMethodFullName(MethodBase.GetCurrentMethod()), $"{ControllerMessages.GeneralException}", ex);
             }
 
-            controllerLogger.LogTrace($"{ControllerMessages.Leaving}");
+            LogTraceMessage($"{ControllerMessages.Leaving}");
 
             return View(viewModel);
         }
 
-        private string GenerateToken(string username, string email)
+        private async Task<string> GenerateToken(string username, string email)
         {
-            var trials = 0;
-
             var samlTokenRequest = new SamlTokenRequest { Username = username, Email = email };
 
-            var uriBuilder = new UriBuilder(tokenGeneratorEndpoint) { Path = "/saml/generate" };
+            using HttpClient client = new();
+            client.BaseAddress = new Uri(_tokenGeneratorEndpoint);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var restClient = new RestClient(new Uri(uriBuilder.ToString())) { Timeout = tokenGeneratorEndpointTimeout };
+            var jsonData = JsonConvert.SerializeObject(samlTokenRequest);
+            using var contentData = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Accept", "application/json");
-            request.AddHeader("Content-type", "application/json");
-            request.AddJsonBody(samlTokenRequest);
-
-            do
+            using var response = await client.PostAsync(new Uri("/saml/generate"), contentData).ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode)
             {
-                var response = restClient.Execute(request);
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    Thread.Sleep(callServiceDelayTime);
-                    continue;
-                }
-                if (!string.IsNullOrEmpty(response.Content))
-                {
-                    var options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true,
-                    };
+                return string.Empty;
+            }
 
-                    var samlTokenResponse = JsonSerializer.Deserialize<SamlTokenResponse>(response.Content, options);
-                    if (samlTokenResponse != null)
-                    {
-                        if (string.IsNullOrEmpty(samlTokenResponse.SamlToken))
-                        {
-                            return string.Empty;
-                        }
+            var stringData = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var samlTokenResponse = JsonConvert.DeserializeObject<SamlTokenResponse>(stringData);
 
-                        var tokenBytes = Encoding.UTF8.GetBytes(samlTokenResponse.SamlToken);
-                        return Convert.ToBase64String(tokenBytes);
-                    }
-                    return string.Empty;
-                }
-            } while (trials++ < callServiceLimit);
-
-            return string.Empty;
+            var tokenBytes = Encoding.UTF8.GetBytes(samlTokenResponse.SamlToken);
+            return Convert.ToBase64String(tokenBytes);
         }
+
+        [LoggerMessage(EventId = 2, Level = LogLevel.Trace, Message = "{message}")]
+        public partial void LogTraceMessage(string message);
     }
 }

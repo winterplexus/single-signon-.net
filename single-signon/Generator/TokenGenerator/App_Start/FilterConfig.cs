@@ -1,7 +1,7 @@
 ﻿//
 //  FilterConfig.cs
 //
-//  Copyright (c) Wiregrass Code Technology 2021
+//  Copyright (c) Wiregrass Code Technology 2021-2023
 //
 using System.Web.Mvc;
 

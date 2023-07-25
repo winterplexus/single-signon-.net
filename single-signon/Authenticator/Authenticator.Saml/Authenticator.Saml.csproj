@@ -1,29 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-        <Authors>Wiregrass Code Technology</Authors>
-        <Company>Wiregrass Code Technology</Company>
-        <Product>Single Sign-on Authenticator</Product>
-        <Description>Single sign-on authenticator SAML library</Description>
-        <Copyright>Copyright © 2021 Wiregrass Code Technology</Copyright>
-        <AssemblyName>Authenticator.Saml</AssemblyName>
-        <RootNamespace>Authenticator.Saml</RootNamespace>
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>NameKey.snk</AssemblyOriginatorKeyFile>
-        <EnableNETAnalyzers>true</EnableNETAnalyzers>
-        <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-        <AnalysisLevel>latest</AnalysisLevel>
-        <Version>1.0.0.0</Version>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Authors>Wiregrass Code Technology</Authors>
+		<Company>Wiregrass Code Technology</Company>
+		<Product>Single Sign-on Authenticator</Product>
+		<Description>Single sign-on authenticator SAML library</Description>
+		<Copyright>Copyright © 2021-2023 Wiregrass Code Technology</Copyright>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
+		<AnalysisLevel>latest</AnalysisLevel>
+		<Version>1.1.0.0</Version>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="System.IO.Compression" Version="4.3.0" />
-        <PackageReference Include="System.Security.Cryptography.Xml" Version="5.0.0" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="System.IO.Compression" Version="4.3.0" />
+		<PackageReference Include="System.Security.Cryptography.Xml" Version="7.0.1" />
+	</ItemGroup>
 
 </Project>
